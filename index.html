@@ -1,388 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurtiro | High-Performance Systems Talent</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURTIRO | Technical Recruitment</title>
+    <style>
+        /* IDE-inspired Light Theme */
+        :root {
+            --bg-color: #f8f9fb;      /* Off-white IDE background */
+            --main-text: #24292e;     /* Dark grey/black for text */
+            --accent-blue: #005cc5;   /* Syntax highlighting blue */
+            --muted-text: #6a737d;    /* Comment-style grey */
+            --border-color: #e1e4e8;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color);
+            /* Using monospaced fonts for the 'coding' look */
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            color: var(--main-text);
+            text-rendering: optimizeLegibility;
+        }
 
-  <style>
-    :root {
-      --bg: #0b0b0d;
-      --border: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
-      --subtle: rgba(255,255,255,0.50);
-      --link: rgba(255,255,255,0.92);
-      --focus: rgba(255,255,255,0.18);
-    }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+        /* The Brand Name */
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
 
-    body {
-      margin: 0;
-      background:
-        radial-gradient(1000px 600px at 20% 10%, rgba(255,255,255,0.07), transparent 60%),
-        radial-gradient(900px 500px at 80% 30%, rgba(255,255,255,0.05), transparent 55%),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.55;
-      letter-spacing: -0.01em;
-      display: flex;
-      justify-content: center;
-    }
+        /* Syntax style cursor effect */
+        h1::after {
+            content: "_";
+            color: var(--accent-blue);
+            animation: blink 1s step-end infinite;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 860px;
-      padding: 48px 20px 56px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px);
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 180px;
-    }
-
-    .brand-name {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-
-    .brand-tag {
-      font-size: 12px;
-      color: var(--subtle);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    nav a {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--border);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .cta {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--bg);
-      background: rgba(255,255,255,0.92);
-      text-decoration: none;
-      padding: 9px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.15);
-      white-space: nowrap;
-    }
-
-    .cta:hover { background: rgba(255,255,255,1); }
-
-    .main {
-      margin-top: 44px;
-      padding: 0 6px;
-    }
-
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      margin: 0 0 12px 0;
-    }
-
-    .hero {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 1.06;
-      letter-spacing: -0.04em;
-      margin: 0 0 18px 0;
-      color: rgba(255,255,255,0.98);
-      max-width: 28ch;
-    }
-
-    .sub-text {
-      font-size: 16px;
-      color: var(--muted);
-      margin: 0 0 16px 0;
-      max-width: 72ch;
-    }
-
-    .sub-text strong {
-      color: rgba(255,255,255,0.92);
-      font-weight: 600;
-    }
-
-    .subline {
-      font-size: 14px;
-      color: var(--subtle);
-      margin: 0 0 24px 0;
-      max-width: 72ch;
-    }
-
-    .divider {
-      margin: 34px 0;
-      border: none;
-      border-top: 1px solid var(--border);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 10px;
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 18px 16px;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.92);
-      font-weight: 600;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .pillrow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .pill {
-      font-size: 12px;
-      color: rgba(255,255,255,0.78);
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-      padding: 6px 10px;
-      border-radius: 999px;
-    }
-
-    .bar {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .mini {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .mini .title {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.90);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .mini .desc {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    footer {
-      margin-top: 44px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      color: var(--subtle);
-      font-size: 13px;
-    }
-
-    a.inline {
-      color: var(--link);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.18);
-    }
-
-    a.inline:hover { border-bottom-color: rgba(255,255,255,0.50); }
-
-    @media (max-width: 760px) {
-      .hero { font-size: 34px; }
-      .grid { grid-template-columns: 1fr; }
-      .bar { grid-template-columns: 1fr; }
-      .topbar { padding: 12px 12px; }
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--focus);
-      outline-offset: 3px;
-      border-radius: 12px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-name">Aurtiro</div>
-        <div class="brand-tag">Hard-to-fill technical roles</div>
-      </div>
-
-      <nav>
-        <a href="#services">Services</a>
-        <a href="#differentiator">Differentiator</a>
-        <a href="#bar">High bar</a>
-        <a class="cta" href="mailto:hello@aurtiro.com?subject=Aurtiro%20%7C%20Role%20intake">Email intake</a>
-      </nav>
-    </header>
-
-    <main class="main">
-      <p class="eyebrow">High-signal recruiting for technical teams</p>
-
-      <h1 class="hero">We fill the roles other firms struggle to fill.</h1>
-
-      <p class="sub-text" id="differentiator">
-        Aurtiro recruits for technically complex roles across today’s <strong>startups</strong> and
-        <strong> established companies</strong>. Our differentiator is deep technical understanding and
-        a practical grasp of how teams build, ship, and operate in the real world. We run a high-bar
-        process and deliver small batches with clear signal.
-      </p>
-
-      <p class="subline">
-        Aurtiro is the firm you call when the role is hard to define, hard to source, and hard to close.
-      </p>
-
-      <hr class="divider" />
-
-      <section id="services">
-        <div class="grid">
-          <div class="card">
-            <h3>Permanent Search</h3>
-            <p>
-              Contingent search for high-difficulty roles where the details matter. We translate business needs
-              into technical requirements, pressure-test scope and leveling, and deliver candidates who can
-              operate across constraints and stakeholders.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Flexible Augmentation</h3>
-            <p>
-              Contract and contract-to-hire for urgent builds, critical backfills, and specialized projects.
-              We prioritize ramp speed, ownership, and clean collaboration within your existing engineering and
-              product workflows.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="card" style="margin-top: 16px;">
-        <h3>What we focus on</h3>
-        <p>
-          We specialize in roles with high ambiguity, high impact, and real technical risk. Our screening emphasizes
-          fundamentals, sound tradeoff thinking, and the ability to execute in production environments.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Systems engineering</span>
-          <span class="pill">Infrastructure and platforms</span>
-          <span class="pill">Performance and reliability</span>
-          <span class="pill">Distributed systems</span>
-          <span class="pill">Data and compute</span>
-          <span class="pill">Security and correctness</span>
-          <span class="pill">Tooling and developer experience</span>
-        </div>
-      </section>
-
-      <section id="bar" style="margin-top: 16px;">
-        <div class="card">
-          <h3>High bar beyond technical</h3>
-          <p>
-            Technical depth is necessary, not sufficient. We also screen for communication clarity, interpersonal maturity,
-            and business judgment, because the most effective engineers align stakeholders, make durable decisions, and ship
-            through constraints.
-          </p>
-
-          <div class="bar">
-            <div class="mini">
-              <div class="title">Communication</div>
-              <p class="desc">Concise explanations, crisp tradeoffs, strong written signal.</p>
-            </div>
-            <div class="mini">
-              <div class="title">Interpersonal</div>
-              <p class="desc">Ownership, feedback style, conflict handling, collaboration under pressure.</p>
-            </div>
-            <div class="mini">
-              <div class="title">Business minded</div>
-              <p class="desc">Prioritization, cost and latency tradeoffs, customer impact reasoning.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <p class="sub-text" style="margin-top: 26px;">
-        Based in San Francisco. Built for teams that need a recruiting partner who understands the technology and the
-        operating realities of both startups and established companies.
-      </p>
-
-      <footer>
-        <div>San Francisco</div>
-        <div>
-          <a class="inline" href="mailto:hello@aurtiro.com">hello@aurtiro.com</a>
-        </div>
-      </footer>
-    </main>
-
-  </div>
-</body>
-</html>
+        /* The Subtext */
+        .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--muted-text);
+            max-width: 600px;
