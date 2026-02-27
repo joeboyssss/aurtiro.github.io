@@ -6,52 +6,62 @@
     <title>AURTIRO | Technical Recruitment</title>
     <style>
         :root {
-            --bg-color: #0d1117;      
-            --main-text: #c9d1d9;     
-            --accent-blue: #58a6ff;   
-            --muted-text: #8b949e;    
-            --border-color: #30363d;
-            --nav-bg: rgba(13, 17, 23, 0.95);
+            /* GitHub Light Theme Palette */
+            --bg-color: #ffffff;      
+            --surface-color: #f6f8fa; 
+            --main-text: #24292f;     
+            --muted-text: #57606a;    
+            --accent-blue: #0969da;   
+            --border-color: #d0d7de;
+            --nav-bg: rgba(255, 255, 255, 0.98);
         }
 
         body, html {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            /* Superhuman readability for body text */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             color: var(--main-text);
             line-height: 1.6;
             scroll-behavior: smooth;
+            font-size: 16px; /* Keeping scale normal/readable */
         }
 
-        /* --- UI Chrome (IDE Vibe) --- */
+        /* Claude Code / GitHub Mono for headers and technical elements */
+        h1, h2, .mono, .logo, .badge, .cmd-bar {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        /* --- UI Chrome (GitHub File Vibe) --- */
         .line-decoration {
             position: fixed;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 40px;
+            width: 45px;
+            background: var(--surface-color);
             border-right: 1px solid var(--border-color);
-            background: #090c10;
-            color: #484f58;
+            color: #6e7781;
             font-size: 12px;
             text-align: right;
-            padding-right: 10px;
+            padding-right: 12px;
             padding-top: 80px;
             user-select: none;
             z-index: 10;
             overflow: hidden;
+            font-family: 'SFMono-Regular', Consolas, monospace;
         }
 
         .main-content {
-            margin-left: 50px; /* Offset for line numbers */
+            margin-left: 58px; /* Offset for line numbers */
         }
 
         /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
-            left: 50px;
+            left: 58px;
             right: 0;
             height: 60px;
             background: var(--nav-bg);
@@ -61,96 +71,262 @@
             justify-content: space-between;
             padding: 0 2rem;
             z-index: 100;
-            backdrop-filter: blur(5px);
         }
 
         .logo {
-            font-weight: 700;
-            color: #fff;
+            font-weight: 600;
+            color: var(--main-text);
             text-decoration: none;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
+
+        /* Superhuman/Claude Command Bar visual */
+        .cmd-bar {
+            display: none;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            color: var(--muted-text);
+            align-items: center;
+            gap: 8px;
+        }
+        @media (min-width: 900px) { .cmd-bar { display: flex; } }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 24px;
+            align-items: center;
         }
 
         .nav-links a {
-            color: var(--main-text);
+            color: var(--muted-text);
             text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.15s;
         }
 
-        .nav-links a:hover { color: var(--accent-blue); }
+        .nav-links a:hover { color: var(--main-text); }
 
         .cta-btn {
-            background: var(--main-text);
-            color: var(--bg-color) !important;
+            background: var(--surface-color);
+            color: var(--main-text) !important;
             padding: 4px 12px;
-            border-radius: 3px;
-            font-weight: bold;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(27, 31, 36, 0.04);
+            transition: all 0.2s;
         }
-        .cta-btn:hover { background: var(--accent-blue); color: #fff !important; }
+        .cta-btn:hover { background: #f3f4f6; border-color: #1f2328; }
 
         /* --- Layout Sections --- */
         section {
             padding: 100px 2rem 60px 2rem;
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
-            border-bottom: 1px dashed var(--border-color);
         }
 
-        h1 { font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 1rem; color: #fff; }
-        h1::after { content: "_"; color: var(--accent-blue); animation: blink 1s step-end infinite; }
+        h1 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 1rem; font-weight: 600; color: #1f2328; }
         
-        h2 { font-size: 1.5rem; color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 0; }
-        h3 { color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 5px; }
+        /* Claude Code Block Cursor */
+        h1::after { content: " █"; color: #d0d7de; animation: pulse 2s infinite; font-size: 2rem; vertical-align: bottom;}
+        
+        h2 { font-size: 1.2rem; color: var(--main-text); border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-top: 0; font-weight: 600; }
+        h3 { color: var(--main-text); font-size: 1rem; margin-bottom: 8px; font-weight: 600; }
 
-        .subtitle { font-size: 1.1rem; color: var(--muted-text); max-width: 600px; margin-bottom: 2rem; }
+        .subtitle { font-size: 1.15rem; color: var(--muted-text); max-width: 650px; margin-bottom: 2rem; line-height: 1.7; }
 
         /* --- Clients Marquee --- */
         .marquee-wrapper {
             overflow: hidden;
             white-space: nowrap;
-            padding: 20px 0;
+            padding: 24px 0;
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
-            background: #090c10;
+            background: var(--surface-color);
         }
         .marquee {
             display: inline-block;
-            animation: scroll 40s linear infinite;
+            animation: scroll 45s linear infinite;
             color: var(--muted-text);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
-        .marquee span { margin-right: 40px; }
+        .marquee span { margin-right: 48px; }
         
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- Grids & Cards --- */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* --- Grids & Cards (Superhuman clean borders) --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         
         .card {
-            background: #090c10;
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 4px;
+            padding: 24px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(27, 31, 36, 0.04);
         }
 
         blockquote {
-            margin: 0 0 20px 0;
-            padding-left: 15px;
-            border-left: 3px solid var(--accent-blue);
-            font-style: italic;
-            color: #
+            margin: 0 0 24px 0;
+            padding-left: 16px;
+            border-left: 3px solid var(--border-color);
+            color: var(--muted-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .author { font-size: 0.85rem; color: var(--main-text); text-align: right; display: block; font-weight: 500; margin-top: 12px;}
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--surface-color);
+            color: var(--muted-text);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 40px; color: var(--muted-text); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 60px;}
+        .kbd { border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px; background: var(--surface-color); font-size: 0.75rem; margin-left: 8px; }
+
+        @media (max-width: 768px) {
+            .line-decoration { display: none; }
+            .main-content { margin-left: 0; }
+            nav { left: 0; padding: 0 1rem; height: auto; padding-top: 12px; padding-bottom: 12px; flex-direction: column; gap: 12px;}
+            .nav-links { gap: 16px; justify-content: center; width: 100%; flex-wrap: wrap;}
+            .grid-2 { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            section { padding-top: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="line-decoration">
+        <script>
+            for(let i=1; i<=150; i++) document.write(i + '<br>');
+        </script>
+    </div>
+
+    <div class="main-content">
+        <nav>
+            <a href="#" class="logo">AURTIRO</a>
+            
+            <div class="cmd-bar">
+                <span style="color: var(--accent-blue);">❯</span> aurtiro status --live
+            </div>
+
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#proof">Proof</a>
+                <a href="#about">About</a>
+                <a href="https://forms.google.com" target="_blank" class="cta-btn">Submit Resume / Hire <span class="kbd mono">⌘K</span></a>
+            </div>
+        </nav>
+
+        <section id="hero" style="padding-top: 140px;">
+            <h1>AURTIRO</h1>
+            <p class="subtitle">
+                Analog white-glove staffing for the humans building AI. Specialized technical recruitment for elite engineers and high-performance teams.
+            </p>
+            <a href="#services" style="color: var(--accent-blue); text-decoration: none; font-weight: 500; font-family: 'SFMono-Regular', monospace; font-size: 0.9rem;">
+                ↓ Read documentation
+            </a>
+        </section>
+
+        <div class="marquee-wrapper">
+            <div class="marquee">
+                <span>Bloomberg</span><span>Sony Interactive</span><span>Zillow</span><span>Ripple</span><span>Gap Inc</span><span>Genentech</span><span>Harvard Medical</span><span>MuleSoft</span><span>Credit Karma</span><span>Postman</span><span>Stitch Fix</span><span>TripAdvisor</span><span>Paraform</span><span>IPG Mediabrands</span><span>LiveRamp</span><span>BitMEX</span>
+                <span>Bloomberg</span><span>Sony Interactive</span><span>Zillow</span><span>Ripple</span><span>Gap Inc</span><span>Genentech</span><span>Harvard Medical</span><span>MuleSoft</span><span>Credit Karma</span><span>Postman</span><span>Stitch Fix</span><span>TripAdvisor</span><span>Paraform</span><span>IPG Mediabrands</span><span>LiveRamp</span><span>BitMEX</span>
+            </div>
+        </div>
+
+        <section id="services">
+            <h2 class="mono">services.ts</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Contingent Staffing</h3>
+                    <p style="font-size: 0.95rem; color: var(--muted-text);">Full-time engineering talent acquisition. We execute the search, vetting, and closing. You only pay a fee upon the successful hire of a candidate.</p>
+                </div>
+                <div class="card">
+                    <h3>Retained Search</h3>
+                    <p style="font-size: 0.95rem; color: var(--muted-text);">Dedicated partnership for clients with critical, high-volume openings or continued growth roadmaps that require ongoing talent identification.</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px; background: var(--surface-color);">
+                <h3>// For Hiring Managers [Coming Soon]</h3>
+                <p style="font-size: 0.95rem; color: var(--muted-text);">Proprietary tooling for interviewer selection, training, tracking, and pipeline management.</p>
+            </div>
+        </section>
+
+        <section id="proof">
+            <h2 class="mono">execution_logs.txt</h2>
+            
+            <h3 style="margin-top: 32px; color: var(--muted-text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Client Feedback</h3>
+            <div class="card">
+                <blockquote>
+                    "I had the pleasure of working with Joe while I was Director of Engineering at Ripple, where he served as my Talent Acquisition partner... Every candidate he shortlisted was top-notch, and the entire hiring process was remarkably smooth thanks to his expertise. What truly sets Joe apart is his ability to listen and act with genuine empathy. He wasn't just a recruiter—he became a trusted sparring partner, helping me navigate hiring negotiations... I would absolutely work with Joe again."
+                    <span class="author">Director of Engineering, Ripple</span>
+                </blockquote>
+            </div>
+
+            <h3 style="margin-top: 32px; color: var(--muted-text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Peer Validation</h3>
+            <div class="card">
+                <blockquote>
+                    "Joe is one of the most dedicated, diligent, and passionate Talent Acquisition professionals I’ve had the opportunity to work with. He is not only an exceptional full-stack technical recruiter, but also someone with the technical aptitude and deep understanding of niche skill sets needed to successfully fill even the most complex roles... His attention to detail is unmatched."
+                    <span class="author">Talent Leadership, Ripple</span>
+                </blockquote>
+            </div>
+
+            <h3 style="margin-top: 32px; color: var(--muted-text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Candidate Experiences</h3>
+            <div class="grid-2">
+                <div>
+                    <blockquote>"Super efficient recruiter! First HR from potential company called me in 3 hours after my first call with Joe. Because of his great relationship with companies he was able to speed up interview process a lot. He will be the first recruiter I call should I decide for new opportunities."</blockquote>
+                    <blockquote>"I can't recommend Joe highly enough. He is by far and away the best recruiter I have come across. His exceptional communication skills and professionalism are outstanding."</blockquote>
+                </div>
+                <div>
+                    <blockquote>"Joe did a great job in finding a job for myself and negotiating the offer. I am very impressed with his skills."</blockquote>
+                    <blockquote>"I would highly recommend Joe for your next job search. He was thorough, openly communicative, and ready to go to bat for his prospects. He delivered outstanding results."</blockquote>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="mono">config.json</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Core Philosophy</h3>
+                    <p style="font-size: 0.95rem; color: var(--muted-text);">We operate as a strategic partner, not just a resume router. Our process relies on deep technical aptitude and rigorous vetting to ensure we meet an uncompromising talent bar.</p>
+                </div>
+                <div class="card">
+                    <h3>Recognitions</h3>
+                    <div style="margin-top: 12px;">
+                        <span class="badge mono">Rookie of the Year (Motion)</span>
+                        <span class="badge mono">Textio: Interrupting Bias</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span class="mono">EOF.</span> <br><br>
+            Aurtiro © 2026. San Francisco, CA.
+        </footer>
+    </div>
+
+</body>
+</html>
