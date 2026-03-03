@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   candidateTestimonials,
   clientLogos,
@@ -15,6 +15,26 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const dropdownCloseTimer = useRef<number | null>(null);
+
+  const clearDropdownCloseTimer = () => {
+    if (dropdownCloseTimer.current !== null) {
+      window.clearTimeout(dropdownCloseTimer.current);
+      dropdownCloseTimer.current = null;
+    }
+  };
+
+  const openDropdown = (title: string) => {
+    clearDropdownCloseTimer();
+    setActiveDropdown(title);
+  };
+
+  const scheduleDropdownClose = (title: string) => {
+    clearDropdownCloseTimer();
+    dropdownCloseTimer.current = window.setTimeout(() => {
+      setActiveDropdown((prev) => (prev === title ? null : prev));
+    }, 140);
+  };
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -28,11 +48,14 @@ function App() {
     const close = () => {
       setActiveDropdown(null);
       setMenuOpen(false);
+      clearDropdownCloseTimer();
     };
 
     window.addEventListener('hashchange', close);
     return () => window.removeEventListener('hashchange', close);
   }, []);
+
+  useEffect(() => () => clearDropdownCloseTimer(), []);
 
   const marqueeItems = useMemo(() => [...clientLogos, ...clientLogos], []);
 
@@ -60,8 +83,8 @@ function App() {
               <div
                 key={group.title}
                 className="relative"
-                onMouseEnter={() => setActiveDropdown(group.title)}
-                onMouseLeave={() => setActiveDropdown((prev) => (prev === group.title ? null : prev))}
+                onMouseEnter={() => openDropdown(group.title)}
+                onMouseLeave={() => scheduleDropdownClose(group.title)}
               >
                 <button
                   className="rounded-md px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-slate-600 transition hover:bg-slate-100 hover:text-ink"
@@ -73,7 +96,11 @@ function App() {
                 </button>
 
                 {activeDropdown === group.title && (
-                  <div className="absolute right-0 top-11 w-72 rounded-xl border border-shell bg-white p-3 shadow-panel">
+                  <div
+                    className="absolute right-0 top-full z-30 w-72 rounded-xl border border-shell bg-white p-3 shadow-panel"
+                    onMouseEnter={clearDropdownCloseTimer}
+                    onMouseLeave={() => scheduleDropdownClose(group.title)}
+                  >
                     {group.items.map((item) => (
                       <a
                         key={item.href}
